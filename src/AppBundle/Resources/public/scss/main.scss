@@ -1,0 +1,22 @@
+@import url(https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco);
+@import "vars";
+body {
+    background: $gray;
+    font-size: $baseFontSize;
+}
+header.main {
+    font-family: 'Sue Ellen Francisco', cursive;
+    font-size: $largeHeading;
+    margin: 0 0 30px;
+    text-align: center;
+    img.logo {
+        display: block;
+        margin: 0 auto 15px;
+        width: 10vw;
+    }
+}
+.battle-zone {
+    background: $white;
+    border-radius: 3px;
+    padding: 30px;
+}
