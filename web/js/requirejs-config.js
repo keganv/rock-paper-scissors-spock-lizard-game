@@ -10,7 +10,7 @@ requirejs.config({
             "vendor/bootstrap/dist/js/bootstrap.min"
         ],
         "angular": [
-            "//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js",
+            "//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min",
             "vendor/angular/angular.min"
         ],
         "main": "js/main"
