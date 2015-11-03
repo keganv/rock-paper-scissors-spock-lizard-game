@@ -8,8 +8,8 @@ parameters:
     database_user:     root
     database_password: ~
     dev_database_password: 1234
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
+    assetic.cache.class: ~
+
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
