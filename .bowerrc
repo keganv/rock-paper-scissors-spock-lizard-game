@@ -1,0 +1,6 @@
+{
+    "directory": "web/vendor",
+    "json": "bower.json",
+    "timeout": 12000,
+    "analytics": false
+}
