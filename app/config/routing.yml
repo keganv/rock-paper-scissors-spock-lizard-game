@@ -1,3 +1,7 @@
 app:
-    resource: "@AppBundle/Controller/"
+    resource: AppBundle\Controller\DefaultController
     type:     annotation
+
+battles:
+    resource: AppBundle\Controller\BattleController
+    type:     rest
