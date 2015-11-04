@@ -19,7 +19,9 @@ class BattleType extends AbstractType
                 'userWeapon',
                 'choice',
                 [
-                    'choices' => ['Rock', 'Paper', 'Scissors', 'Spock', 'Lizard']
+                    'label' => false,
+                    'choices' => ['Rock', 'Paper', 'Scissors', 'Spock', 'Lizard'],
+                    'expanded' => true
                 ]
             )
             ->add(
