@@ -4,6 +4,11 @@ body {
     background: $gray;
     font-size: $baseFontSize;
 }
+.text-purple { color: $purple; }
+.text-green { color: $green; }
+.text-blue { color: $blue; }
+.text-pink { color: $pink; }
+.text-yellow { color: $yellow; }
 header.main {
     font-family: 'Sue Ellen Francisco', cursive;
     font-size: $largeHeading;
@@ -12,7 +17,8 @@ header.main {
     img.logo {
         display: block;
         margin: 0 auto 15px;
-        width: 10vw;
+        min-width: 200px;
+        width: 20vw;
     }
 }
 .battle-zone {
