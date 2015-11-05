@@ -24,7 +24,7 @@ class BattleTypeSubscriber implements EventSubscriberInterface
         $battle = $event->getData();
 
         if (isset($battle['computerWeapon']) && isset($battle['victor'])) {
-            $battle['computerWeapon'] = rand(0, 4);
+            $battle['computerWeapon'] = mt_rand(0, 4);
             $battle['victor'] = $this->setVictor($battle);
         }
 
@@ -33,7 +33,7 @@ class BattleTypeSubscriber implements EventSubscriberInterface
 
     /**
      * Sets the victor of the battle
-     * 
+     *
      * @param $battle
      * @return int
      */
