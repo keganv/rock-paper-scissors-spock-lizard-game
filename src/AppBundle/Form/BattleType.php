@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use AppBundle\Form\Subscriber\BattleTypeSubscriber;
+
 class BattleType extends AbstractType
 {
     /**
@@ -39,6 +41,8 @@ class BattleType extends AbstractType
                 ]
             )
         ;
+
+        $builder->addEventSubscriber(new BattleTypeSubscriber());
     }
 
     /**
