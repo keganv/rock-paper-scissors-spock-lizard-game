@@ -4,9 +4,26 @@
     <section class="battle-zone col-lg-10 col-md-10 col-sm-12 col-lg-offset-1 col-md-offset-1">
         <h2 class="text-center">Select Your Weapon</h2>
         <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form" class="col-md-12">
-            {{ form_row(form.userWeapon) }}
-            {{ form_row(form.computerWeapon) }}
-            {{ form_row(form.victor) }}
+            <div class="row">
+                <div class="weapons col-md-12 center-block">
+                    {% for weapon in form.userWeapon %}
+                        <div class="input-group weapon-{{ loop.index }}">
+                            {% set image %}
+                                {{ loop.index == 1 ? asset('img/rock.png') }}
+                                {{ loop.index == 2 ? asset('img/paper.png') }}
+                                {{ loop.index == 3 ? asset('img/scissors.png') }}
+                                {{ loop.index == 4 ? asset('img/spock.png') }}
+                                {{ loop.index == 5 ? asset('img/lizard.png') }}
+                            {% endset %}
+                            <img src="{{ image }}" class="img-{{ loop.index }}" />
+                            {{ form_widget(weapon) }}
+                            {{ form_label(weapon) }}
+                        </div>
+                    {% endfor %}
+                </div>
+                {{ form_widget(form.computerWeapon) }}
+                {{ form_widget(form.victor) }}
+            </div>
             <input type="hidden" name="_method" value="{{ form.vars.method }}">
             {{ form_widget(form._token) }}
             <button class="btn btn-primary" type="submit">BATTLE</button>
