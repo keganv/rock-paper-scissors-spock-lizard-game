@@ -19,7 +19,7 @@ class DefaultController extends Controller
     {
         $battle = new Battle();
         $form = $this->createForm(new BattleType(), $battle, array(
-            'action' => $this->generateUrl('index'),
+            'action' => $this->generateUrl('post_battle'),
             'method' => 'POST'
         ));
 
