@@ -6,6 +6,7 @@
         <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form" class="col-md-12">
             {{ form_row(form.userWeapon) }}
             {{ form_row(form.computerWeapon) }}
+            {{ form_row(form.victor) }}
             <input type="hidden" name="_method" value="{{ form.vars.method }}">
             {{ form_widget(form._token) }}
             <button class="btn btn-primary" type="submit">BATTLE</button>
