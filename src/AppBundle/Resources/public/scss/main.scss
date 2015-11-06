@@ -20,12 +20,17 @@ header.main {
         width: 15vw;
     }
 }
-.battle-zone {
+section {
     background: $white;
     border-radius: 3px;
-    padding: 30px;
+    margin: 0 auto 30px;
+    padding: 15px;
+    width: 80%;
+}
+.battle-zone {
+    padding: 0 15px 45px;
     .weapons {
-        margin-top: 30px;
+        margin-top: 15px;
         .input-group {
             display: block;
             float: left;
@@ -38,7 +43,7 @@ header.main {
                 display: block;
                 width: 100%;
                 &.active {
-                    border: 3px solid $blue;
+                    box-shadow: 0 0 3px 2px $blue;
                 }
             }
             input {
@@ -56,5 +61,10 @@ header.main {
                 width: 100%;
             }
         }
+    }
+    button[type=submit] {
+        display: none;
+        margin-bottom: -30px;
+        margin-top: 70px;
     }
 }
