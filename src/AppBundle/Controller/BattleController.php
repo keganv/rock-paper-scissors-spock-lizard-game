@@ -11,6 +11,13 @@ use AppBundle\Form\BattleType;
 
 class BattleController extends FOSRestController
 {
+    protected $em;
+
+    public function __construct()
+    {
+        // $this->em = $this->get('');
+    }
+
     public function getBattlesAction()
     {
         $battles = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Battle')->findAll();
@@ -38,7 +45,16 @@ class BattleController extends FOSRestController
             $em->persist($battle);
             $em->flush();
 
-            $data = [0 => 'You won the game!'];
+            $qb = $em->createQueryBuilder();
+            $qb->select('b')
+                ->from('AppBundle:Battle', 'b')
+                ->setMaxResults(1)
+                ->orderBy('b.id', 'DESC');
+            $query = $qb->getQuery();
+            $lastBattle = $query->getResult();
+
+            var_dump($lastBattle);die;
+
             $view = $this->view($data, 200);
             return $this->handleView($view);
         }
@@ -49,5 +65,32 @@ class BattleController extends FOSRestController
         }
         $view = $this->view($errors, 500);
         return $this->handleView($view);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\DBAL\ConnectionException
+     */
+    public function deleteBattlesAction()
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $cmd = $em->getClassMetadata('AppBundle\Entity\Battle');
+        $connection = $em->getConnection();
+        $connection->beginTransaction();
+
+        try {
+            $connection->query('SET FOREIGN_KEY_CHECKS=0');
+            $connection->query('DELETE FROM '.$cmd->getTableName());
+            $connection->query('SET FOREIGN_KEY_CHECKS=1');
+            $connection->commit();
+            $data = 'Successfully deleted all previous games.';
+            $view = $this->view($data, 200);
+            return $this->handleView($view);
+        } catch (\Exception $e) {
+            $connection->rollback();
+            $data = 'Could not delete all previous games.';
+            $view = $this->view($data, 200);
+            return $this->handleView($view);
+        }
     }
 }
