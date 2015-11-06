@@ -7,4 +7,3 @@ the computers choice along with who won the battle.
 
 This app is created in [Symfony](http://symfony.com) and recommended that you have [Bower](http://bower.io)
 installed for asset management.
-
