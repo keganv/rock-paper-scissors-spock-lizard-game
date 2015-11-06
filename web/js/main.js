@@ -30,5 +30,27 @@ require(['jquery'], function($) {
             e.preventDefault();
             _postBattle();
         });
+
+        // When a user selects a weapon
+        $(document).on('click', '.weapons label', function() {
+            $('.weapons img').removeClass('active');
+            $(this).parent().find('img').addClass('active');
+            $('form button[type="submit"]').fadeIn();
+        });
+
+        // When a user resets the games
+        $(document).on('click', 'button.reset-games', function() {
+            $.ajax({
+                'type' : 'DELETE',
+                'url' : '/battles',
+                'data' : null,
+                'success' : function(data) {
+                    console.log(data);
+                },
+                'error' : function(data) {
+                    console.log(data.statusText);
+                }
+            });
+        });
     }();
 });
