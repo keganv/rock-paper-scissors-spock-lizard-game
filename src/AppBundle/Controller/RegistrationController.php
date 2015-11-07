@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Form;
 
 use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
@@ -37,9 +38,22 @@ class RegistrationController extends FOSRestController
             return $this->handleView($view);
         }
 
-        $response = (string) $form->getErrors(true, true);
-        $view = $this->view($response, 400);
+        $errors = (string) $form->getErrors(true, true);
+        $view = $this->view($errors, 400);
 
         return $this->handleView($view);
+    }
+
+    private function getErrorMessages(Form $form) {
+        $errors = [];
+        foreach($form->getErrors() as $key => $error) {
+            $errors[] = $error->getMessage();
+        }
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getErrorMessages($child);
+            }
+        }
+        return $errors;
     }
 }

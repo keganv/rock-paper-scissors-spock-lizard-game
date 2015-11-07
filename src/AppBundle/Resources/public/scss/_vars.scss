@@ -1,4 +1,5 @@
 // COLORS
+$base: #222;
 $white: #fff;
 $gray: #eee;
 $purple: darken(#f8d3ff, 20%);
@@ -8,7 +9,7 @@ $blue: darken(#d3e4ff, 20%);
 $yellow: darken(#fff7d6, 20%);
 
 // FONT SIZES
-$baseFontSize: 18px;
+$baseFontSize: 20px;
 $largeFontSize: $baseFontSize + 1;
 $largerFontSize: $baseFontSize + 2;
 $largestFontSize: $baseFontSize + 5;

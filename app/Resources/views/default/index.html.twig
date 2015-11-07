@@ -1,14 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="messages">
+        <div class="success alert alert-success">
+            <span class="close">&times;</span>
+        </div>
+
+    </div>
     {% if app.user is null %}
-        {% include('registration/register.html.twig') with {'form': regForm} %}
-    {% endif %}
-    <section class="battle-zone clearfix">
-        <h2 class="text-center">Select Your Weapon</h2>
-        <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form"
-              id="battle_form" class="col-md-12">
-            <div class="row">
+        <section class="register-login">
+            <p>To battle the computer and keep score of your games, create a user!</p>
+            <a href="javascript:void(0);" class="register btn btn-primary">Create A User</a>
+            <p>Do you already have a user? Click the Login button below!</p>
+            <a href="javascript:void(0);" class="login btn btn-primary">Login</a>
+        </section>
+        <section class="register">
+            <h3>Create A User To Play</h3>
+            {% include('registration/register.html.twig') with {'form': regForm} %}
+        </section>
+    {% else %}
+        <section class="battle-zone clearfix">
+            <h3 class="text-center">Select Your Weapon</h3>
+            <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form"
+                  id="battle_form" class="col-md-12">
                 <div class="weapons col-md-12 clearfix">
                     {% for weapon in form.userWeapon %}
                         <div class="input-group weapon-{{ loop.index }}">
@@ -27,13 +41,11 @@
                 </div>
                 {{ form_widget(form.computerWeapon) }}
                 {{ form_widget(form.victor) }}
-            </div>
-            <input type="hidden" name="_method" value="{{ form.vars.method }}">
-            {{ form_widget(form._token) }}
-            <button class="btn btn-primary col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3" type="submit">BATTLE</button>
-        </form>
-    </section>
-    <section class="clearfix">
-        <button type="button" class="reset-games btn btn-danger pull-right">Reset Games</button>
-    </section>
+                <input type="hidden" name="_method" value="{{ form.vars.method }}">
+                {{ form_widget(form._token) }}
+                <button class="btn btn-primary col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3" type="submit">BATTLE</button>
+            </form>
+            <button type="button" class="reset-games btn btn-danger pull-right">Reset Games</button>
+        </section>
+    {% endif %}
 {% endblock %}

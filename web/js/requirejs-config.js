@@ -11,7 +11,7 @@ requirejs.config({
         ],
         "angular": [
             "//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min",
-            "vendor/angular/angular.min"
+            "vendor/angularjs/angular.min"
         ],
         "main": "js/main"
     },

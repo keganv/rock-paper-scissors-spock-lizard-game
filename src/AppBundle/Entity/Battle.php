@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Battle
  *
@@ -20,6 +22,12 @@ class Battle
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\
+     */
 
     /**
      * @var string
@@ -42,6 +50,11 @@ class Battle
      */
     private $victor;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="battles")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     **/
+    private $user;
 
     /**
      * Get id
@@ -124,5 +137,28 @@ class Battle
     {
         return $this->victor;
     }
-}
 
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Battle
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

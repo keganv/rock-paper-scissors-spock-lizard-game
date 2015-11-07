@@ -10,6 +10,34 @@ body {
 .text-blue { color: $blue; }
 .text-pink { color: $pink; }
 .text-yellow { color: $yellow; }
+h2, h3, h4 {
+    font-size: $largeHeading;
+    margin: 0 0 15px;
+    text-align: center;
+}
+form {
+    margin-top: 30px;
+    > div {
+        margin: 15px 0;
+        label {
+            display: inline-block;
+            padding-right: 2%;
+            text-align: right;
+            width: 14%;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            border: 1px solid $gray;
+            border-radius: 4px;
+            display: inline-block;
+            width: 85%;
+        }
+    }
+    button.btn {
+        margin-left: 14%;
+    }
+}
 header.main {
     margin: 0 0 30px;
     text-align: center;
@@ -20,51 +48,82 @@ header.main {
         width: 15vw;
     }
 }
+.messages {
+    font-size: $largestFontSize;
+    div.alert {
+        display: none;
+        p {
+            border-radius: 3px;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+        .close {
+            border-radius: 50px;
+            border-style: solid;
+            border-width: 1px;
+            margin-top: 4px;
+            padding: 0 0 3px;
+            text-align: center;
+            width: 26px;
+        }
+    }
+}
 section {
     background: $white;
     border-radius: 3px;
     margin: 0 auto 30px;
     padding: 15px;
-    width: 80%;
-}
-.battle-zone {
-    padding: 0 15px 45px;
-    .weapons {
-        margin-top: 15px;
-        .input-group {
-            display: block;
-            float: left;
-            height: 100%;
-            padding: 0 15px;
-            position: relative;
-            width: 20%;
-            img {
-                border-radius: 1000px;
-                display: block;
-                width: 100%;
-                &.active {
-                    box-shadow: 0 0 3px 2px $blue;
-                }
-            }
-            input {
-                display: none;
-            }
-            label {
-                cursor: pointer;
-                display: block;
-                height: 100%;
-                left: 0;
-                padding-top: 105%;
-                position: absolute;
-                text-align: center;
-                top: 0;
-                width: 100%;
-            }
+    &.register-login {
+        min-width: 300px;
+        text-align: center;
+        width: 50%;
+        .register.btn {
+            margin-bottom: 30px;
         }
     }
-    button[type=submit] {
+    &.register {
         display: none;
-        margin-bottom: -30px;
-        margin-top: 70px;
+    }
+    &.battle-zone {
+        padding: 15px 15px 45px;
+        .weapons {
+            margin: 0;
+            .input-group {
+                display: block;
+                float: left;
+                height: 100%;
+                padding: 0 15px;
+                position: relative;
+                width: 20%;
+                img {
+                    border-radius: 1000px;
+                    display: block;
+                    width: 100%;
+                    &.active {
+                        box-shadow: 0 0 3px 2px $blue;
+                    }
+                }
+                input {
+                    display: none;
+                }
+                label {
+                    cursor: pointer;
+                    display: block;
+                    height: 100%;
+                    left: 0;
+                    padding-top: 105%;
+                    position: absolute;
+                    text-align: center;
+                    top: 0;
+                    width: 100%;
+                }
+            }
+        }
+        button[type=submit] {
+            display: none;
+            margin-bottom: -30px;
+            margin-top: 70px;
+        }
     }
 }
