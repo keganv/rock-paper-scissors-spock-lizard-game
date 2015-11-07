@@ -25,8 +25,40 @@ require(['jquery'], function($) {
             });
         }
 
-        // Listen to the submission on the form
-        $(document).on('submit', $form, function(e) {
+        function _submitForm($form) {
+            var fields = {};
+            $.each($form.serializeArray(), function(index, field) {
+                fields[field.name] = field.value;
+            });
+
+            $.ajax({
+                'type' : $form.attr('method'),
+                'url' : $form.attr('action'),
+                'data' : fields,
+                'success' : function(data) {
+                    console.log(data);
+                },
+                'error' : function(data) {
+                    alert(data.responseJSON);
+                }
+            });
+        }
+
+        $(document).on('submit', 'form', function(e) {
+            e.preventDefault();
+            if ($(this).attr('name', 'user')) {
+                _submitForm($(this));
+            }
+        });
+
+        // Registration form
+        //$($regForm).on('submit', function(e) {
+        //    e.preventDefault();
+        //    _register();
+        //});
+
+        // Listen to the submission on the battle form
+        $($form).on('submit', function(e) {
             e.preventDefault();
             _postBattle();
         });
