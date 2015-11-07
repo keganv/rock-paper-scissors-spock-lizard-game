@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if app.user is null %}
+        {% include('registration/register.html.twig') with {'form': regForm} %}
+    {% endif %}
     <section class="battle-zone clearfix">
         <h2 class="text-center">Select Your Weapon</h2>
-        <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form" class="col-md-12">
+        <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form"
+              id="battle_form" class="col-md-12">
             <div class="row">
                 <div class="weapons col-md-12 clearfix">
                     {% for weapon in form.userWeapon %}

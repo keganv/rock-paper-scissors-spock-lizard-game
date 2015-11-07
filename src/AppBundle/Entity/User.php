@@ -21,22 +21,29 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @ORM\Column(name="username", type="string", length=25, unique=true)
      * @Assert\NotBlank()
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=64)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="password", type="string", length=64)
      * @Assert\Length(max = 64)
      */
     private $password;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max = 4096)
+     */
+    private $plainPassword;
+
+    /**
      * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email address."
+     * )
      * @Assert\Length(max = 60)
      */
     private $email;
@@ -56,7 +63,7 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->isActive = true;
-        $this->salt = md5(uniqid(null, true));
+        $this->salt = null; // using bcrypt which salts internally
         $this->battles = new ArrayCollection();
     }
     /**
@@ -104,6 +111,22 @@ class User implements UserInterface, \Serializable
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param $password
+     */
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 
     /**
