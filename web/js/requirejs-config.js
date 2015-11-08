@@ -9,14 +9,13 @@ requirejs.config({
             "//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min",
             "vendor/bootstrap/dist/js/bootstrap.min"
         ],
-        "angular": [
-            "//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min",
-            "vendor/angularjs/angular.min"
-        ],
         "main": "js/main"
     },
     shim: {
         "bootstrap": {
+            deps: ["jquery"]
+        },
+        "main": {
             deps: ["jquery"]
         }
     },

@@ -16,7 +16,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div class="container">
+        <div class="container" data-ng-controller="MainController">
             <header class="main">
                 <img src="{{ asset('img/RPSLS.png') }}" alt="ROCK PAPER SCISSORS SPOCK LIZARD" class="logo" />
                 <h1>
@@ -33,7 +33,7 @@
             <script src="{{ asset('vendor/requirejs/require.js') }}"></script>
             <script>
                 require(['js/requirejs-config'], function() {
-                    require(['jquery', 'bootstrap', 'angular', 'main']);
+                    require(['main']);
                 });
             </script>
         {% endblock %}
