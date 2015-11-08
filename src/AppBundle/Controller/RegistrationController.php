@@ -38,7 +38,7 @@ class RegistrationController extends FOSRestController
             return $this->handleView($view);
         }
 
-        $errors = (string) $form->getErrors(true, true);
+        $errors = $this->getErrorMessages($form);
         $view = $this->view($errors, 400);
 
         return $this->handleView($view);
@@ -46,13 +46,8 @@ class RegistrationController extends FOSRestController
 
     private function getErrorMessages(Form $form) {
         $errors = [];
-        foreach($form->getErrors() as $key => $error) {
+        foreach($form->getErrors(true, true) as $key => $error) {
             $errors[] = $error->getMessage();
-        }
-        foreach ($form->all() as $child) {
-            if (!$child->isValid()) {
-                $errors[$child->getName()] = $this->getErrorMessages($child);
-            }
         }
         return $errors;
     }

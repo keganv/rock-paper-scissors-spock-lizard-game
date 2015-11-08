@@ -1,11 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="messages">
-        <div class="success alert alert-success">
-            <span class="close">&times;</span>
-        </div>
-    </div>
+    <div class="messages"></div>
     {% if app.user is null %}
         <section class="register-login">
             <p>To battle the computer and keep score of your games, create a user!</p>
@@ -17,36 +13,35 @@
             <h3>Create A User To Play</h3>
             {% include('registration/register.html.twig') with {'form': regForm} %}
         </section>
-    {% else %}
-        <section class="battle-zone clearfix">
-            <h3 class="text-center">Select Your Weapon</h3>
-            <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form"
-                  id="battle_form" class="col-md-12" data-ng-sumit="submitForm($event.currentTarget)">
-                <div class="weapons col-md-12 clearfix">
-                    {% for weapon in form.userWeapon %}
-                        <div class="input-group weapon-{{ loop.index }}">
-                            {% set image %}
-                                {{ loop.index == 1 ? asset('img/rock.png') }}
-                                {{ loop.index == 2 ? asset('img/paper.png') }}
-                                {{ loop.index == 3 ? asset('img/scissors.png') }}
-                                {{ loop.index == 4 ? asset('img/spock.png') }}
-                                {{ loop.index == 5 ? asset('img/lizard.png') }}
-                            {% endset %}
-                            <img src="{{- image -}}" class="img-{{ loop.index }}" />
-                            {{ form_widget(weapon) }}
-                            {{ form_label(weapon) }}
-                        </div>
-                    {% endfor %}
-                </div>
-                {{ form_widget(form.computerWeapon) }}
-                {{ form_widget(form.victor) }}
-                <input type="hidden" name="_method" value="{{ form.vars.method }}">
-                {{ form_widget(form._token) }}
-                <button class="btn btn-primary" type="submit">
-                    BATTLE
-                </button>
-            </form>
-            <button type="button" class="reset-games btn btn-danger pull-right">Reset Games</button>
-        </section>
     {% endif %}
+    <section class="battle-zone clearfix">
+        <h3 class="text-center">Select Your Weapon</h3>
+        <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form"
+              id="battle_form" class="col-md-12" data-ng-sumit="submitForm($event.currentTarget)">
+            <div class="weapons col-md-12 clearfix">
+                {% for weapon in form.userWeapon %}
+                    <div class="input-group weapon-{{ loop.index }}">
+                        {% set image %}
+                            {{ loop.index == 1 ? asset('img/rock.png') }}
+                            {{ loop.index == 2 ? asset('img/paper.png') }}
+                            {{ loop.index == 3 ? asset('img/scissors.png') }}
+                            {{ loop.index == 4 ? asset('img/spock.png') }}
+                            {{ loop.index == 5 ? asset('img/lizard.png') }}
+                        {% endset %}
+                        <img src="{{- image -}}" class="img-{{ loop.index }}" />
+                        {{ form_widget(weapon) }}
+                        {{ form_label(weapon) }}
+                    </div>
+                {% endfor %}
+            </div>
+            {{ form_widget(form.computerWeapon) }}
+            {{ form_widget(form.victor) }}
+            <input type="hidden" name="_method" value="{{ form.vars.method }}">
+            {{ form_widget(form._token) }}
+            <button class="btn btn-primary" type="submit">
+                BATTLE
+            </button>
+        </form>
+        <button type="button" class="reset-games btn btn-danger pull-right">Reset Games</button>
+    </section>
 {% endblock %}

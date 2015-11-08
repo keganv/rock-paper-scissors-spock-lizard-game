@@ -14,7 +14,7 @@ require(['jquery'], function($) {
                 'url' : $form.attr('action'),
                 'data' : fields,
                 'success' : function(data) {
-                    console.log(data);
+                    _showMessages('success', data);
                 },
                 'error' : function(data) {
                     _showMessages('error', data.responseJSON);
@@ -23,20 +23,27 @@ require(['jquery'], function($) {
         }
 
         function _showMessages(type, data) {
+            var classes;
+            $('.messages .alert').remove();
+
             if (type === 'error') {
-                data = data.split('ERROR:');
-                $.each(data, function(k, v) {
-                    if (v != '') {
-                        var message =
-                            '<div class="error alert alert-danger">' +
-                                '<p>' + v + '</p>' +
-                                '<span class="close">&times;</span>' +
-                            '</div>';
-                        $('.messages').append(message);
-                    }
-                });
-                $('.messages .error').fadeIn();
+                classes = 'error alert alert-danger';
+            } else if (type === 'success') {
+                classes = 'success alert alert-success';
             }
+
+            $.each(data, function(k, v) {
+                if (v != '') {
+                    var message =
+                        '<div class="' + classes + '">' +
+                            '<p>' + v + '</p>' +
+                            '<span class="close">&times;</span>' +
+                        '</div>';
+                    $('.messages').append(message);
+                }
+            });
+
+            $('.messages .alert').fadeIn();
         }
 
         // Listens for form submission
@@ -56,6 +63,13 @@ require(['jquery'], function($) {
         $(document).on('click', '.btn.register', function() {
             $('section.register-login').fadeOut(function() {
                 $('section.register').fadeIn();
+            });
+        });
+
+        // Close message alert
+        $(document).on('click', '.messages span.close', function() {
+            $(this).parent('.alert').fadeOut(function() {
+                $(this).remove();
             });
         });
 
