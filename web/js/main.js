@@ -1,6 +1,16 @@
-require(['jquery'], function($) {
+define(function() {
     'use strict';
 
+    var app = angular.module('app', []);
+    app.config( function($interpolateProvider) {
+        $interpolateProvider.startSymbol('<%').endSymbol('%>');
+    });
+
+    app.controller('MainController', function($scope) {
+        $scope.title = 'For Testing Purposes';
+    });
+
+    /*
     return function() {
 
         function _submitForm($form) {
@@ -88,4 +98,5 @@ require(['jquery'], function($) {
             });
         });
     }();
+    */
 });
