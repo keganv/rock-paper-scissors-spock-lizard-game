@@ -5,7 +5,6 @@
         <div class="success alert alert-success">
             <span class="close">&times;</span>
         </div>
-
     </div>
     {% if app.user is null %}
         <section class="register-login">
@@ -22,7 +21,7 @@
         <section class="battle-zone clearfix">
             <h3 class="text-center">Select Your Weapon</h3>
             <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form"
-                  id="battle_form" class="col-md-12">
+                  id="battle_form" class="col-md-12" data-ng-sumit="submitForm($event.currentTarget)">
                 <div class="weapons col-md-12 clearfix">
                     {% for weapon in form.userWeapon %}
                         <div class="input-group weapon-{{ loop.index }}">
@@ -43,7 +42,9 @@
                 {{ form_widget(form.victor) }}
                 <input type="hidden" name="_method" value="{{ form.vars.method }}">
                 {{ form_widget(form._token) }}
-                <button class="btn btn-primary col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3" type="submit">BATTLE</button>
+                <button class="btn btn-primary" type="submit">
+                    BATTLE
+                </button>
             </form>
             <button type="button" class="reset-games btn btn-danger pull-right">Reset Games</button>
         </section>
