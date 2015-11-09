@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="messages"></div>
+    <div class="messages">
+        <div data-ng-repeat="message in messages" class="<% message.class %>">
+            <p><% message.text %></p>
+            <span class="close" data-ng-click="closeAlert($event)">&times;</span>
+        </div>
+    </div>
     {% if app.user is null %}
         <section class="register-login">
             <p>To battle the computer and keep score of your games, create a user!</p>

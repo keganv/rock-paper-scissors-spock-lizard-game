@@ -6,8 +6,66 @@ define(function() {
         $interpolateProvider.startSymbol('<%').endSymbol('%>');
     });
 
-    app.controller('MainController', function($scope) {
-        $scope.title = 'For Testing Purposes';
+    app.controller('MainController', function($scope, $http) {
+        $scope.submitForm = function(e) {
+            e.preventDefault();
+            var $form = $(e.currentTarget);
+            var fields = {};
+            $.each($form.serializeArray(), function(index, field) {
+                fields[field.name] = field.value;
+            });
+
+            $http({
+                method: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $.param(fields),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function successCallback(response) {
+                console.log(response);
+                _showMessages('success', response.data);
+            }, function errorCallback(response) {
+                _showMessages('error', response.data);
+            });
+
+        };
+
+        $scope.messages = [];
+
+        function _showMessages(type, data) {
+            var classes;
+
+            // Remove previous messages
+            $scope.messages = [];
+
+            if (type === 'error') {
+                classes = 'error alert alert-danger';
+            } else if (type === 'success') {
+                classes = 'success alert alert-success';
+            }
+
+            $.each(data, function(k, v) {
+                if (v != '') {
+                    $scope.messages.push({
+                        'class': classes,
+                        'text': v
+                    });
+                }
+            });
+        }
+
+        $scope.closeAlert = function(e) {
+            var $target = $(e.currentTarget);
+            $target.parent('.alert').fadeOut(function() {
+                $(this).remove();
+            });
+        };
+    });
+
+    // Show registrations form
+    $(document).on('click', '.btn.register', function() {
+        $('section.register-login').fadeOut(function() {
+            $('section.register').fadeIn();
+        });
     });
 
     /*
@@ -32,30 +90,6 @@ define(function() {
             });
         }
 
-        function _showMessages(type, data) {
-            var classes;
-            $('.messages .alert').remove();
-
-            if (type === 'error') {
-                classes = 'error alert alert-danger';
-            } else if (type === 'success') {
-                classes = 'success alert alert-success';
-            }
-
-            $.each(data, function(k, v) {
-                if (v != '') {
-                    var message =
-                        '<div class="' + classes + '">' +
-                            '<p>' + v + '</p>' +
-                            '<span class="close">&times;</span>' +
-                        '</div>';
-                    $('.messages').append(message);
-                }
-            });
-
-            $('.messages .alert').fadeIn();
-        }
-
         // Listens for form submission
         $(document).on('submit', 'form', function(e) {
             e.preventDefault();
@@ -69,19 +103,7 @@ define(function() {
             $('form button[type="submit"]').fadeIn();
         });
 
-        // Show registrations form
-        $(document).on('click', '.btn.register', function() {
-            $('section.register-login').fadeOut(function() {
-                $('section.register').fadeIn();
-            });
-        });
 
-        // Close message alert
-        $(document).on('click', '.messages span.close', function() {
-            $(this).parent('.alert').fadeOut(function() {
-                $(this).remove();
-            });
-        });
 
         // When a user resets the games
         $(document).on('click', 'button.reset-games', function() {
