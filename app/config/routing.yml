@@ -6,6 +6,9 @@ battles:
     resource: AppBundle\Controller\BattleController
     type:     rest
 
-registration:
-    resource: AppBundle\Controller\RegistrationController
-    type:     rest
+user:
+    resource:  AppBundle\Controller\UserController
+    type:      rest
+
+logout:
+    path:   /logout/
