@@ -2,7 +2,7 @@
 @import "vars";
 body {
     background: $gray;
-    font-family: 'Sue Ellen Francisco', cursive;
+    font-family: 'Sue Ellen Francisco', Helvetica, Arial, sans-serif;
     font-size: $baseFontSize;
 }
 .text-purple { color: $purple; }
@@ -85,6 +85,7 @@ section {
         display: none;
     }
     &.battle-zone {
+        display: none;
         padding: 15px 15px 45px;
         .weapons {
             margin: 0;
