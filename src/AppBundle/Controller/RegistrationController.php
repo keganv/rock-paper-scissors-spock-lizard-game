@@ -5,6 +5,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
@@ -31,6 +32,11 @@ class RegistrationController extends FOSRestController
             $em->persist($user);
             $em->flush();
 
+            // Start the user session
+            $token = new UsernamePasswordToken($user, null, 'user_provider', $user->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+
+            // Send the response
             $response = ['success' => 'You\'ve successfully registered, you may now battle!'];
             $view = $this->view($response, 200)
                 ->setTemplate('registration/register.html.twig')

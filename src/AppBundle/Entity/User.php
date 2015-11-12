@@ -66,10 +66,10 @@ class User implements UserInterface, \Serializable
      */
     private $battles;
 
+    // using bcrypt which salts internally
     public function __construct()
     {
         $this->isActive = true;
-        $this->salt = null; // using bcrypt which salts internally
         $this->battles = new ArrayCollection();
     }
     /**
@@ -188,7 +188,7 @@ class User implements UserInterface, \Serializable
      */
     public function getSalt()
     {
-        return $this->salt;
+        return null;
     }
 
     /**
@@ -214,8 +214,7 @@ class User implements UserInterface, \Serializable
         return serialize(array(
             $this->id,
             $this->username,
-            $this->password,
-            $this->salt,
+            $this->password
         ));
     }
 
@@ -225,9 +224,8 @@ class User implements UserInterface, \Serializable
         list (
             $this->id,
             $this->username,
-            $this->password,
-            $this->salt
-            ) = unserialize($serialized);
+            $this->password
+        ) = unserialize($serialized);
     }
 
     /**
