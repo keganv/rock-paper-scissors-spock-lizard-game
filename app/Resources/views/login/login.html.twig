@@ -1,0 +1,5 @@
+{{ form_start(form, {'attr':{'data-ng-submit': 'submitForm($event)'}}) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.password) }}
+<button class="btn btn-primary" type="submit">Register</button>
+{{ form_end(form) }}

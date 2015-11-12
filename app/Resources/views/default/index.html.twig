@@ -21,7 +21,7 @@
         </section>
         <section class="login">
             <h3>User Login</h3>
-            {% include('login/login.html.twig') with {'form': regForm} %}
+            {% include('login/login.html.twig') with {'form': loginForm} %}
         </section>
     {% endif %}
     <section class="battle-zone clearfix" style="{{ app.user ? 'display: block;': '' }}">

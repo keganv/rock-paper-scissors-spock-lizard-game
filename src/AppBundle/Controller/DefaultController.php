@@ -9,7 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Battle;
 use AppBundle\Entity\User;
 use AppBundle\Form\BattleType;
-use AppBundle\Form\UserType;
+use AppBundle\Form\RegistrationType;
+use AppBundle\Form\LoginType;
 
 class DefaultController extends Controller
 {
@@ -26,14 +27,20 @@ class DefaultController extends Controller
         ));
 
         $user = new User();
-        $regForm = $this->createForm(new UserType(), $user, array(
+        $regForm = $this->createForm(new RegistrationType(), $user, array(
             'action' => $this->generateUrl('post_user_registration'),
             'method' => 'POST'
         ));
 
+        $loginForm = $this->createForm(new LoginType(), $user, array(
+            'action' => $this->generateUrl('post_user_login'),
+            'method' => 'POST'
+        ));
+
         return $this->render('default/index.html.twig', [
-            'form'    => $form->createView(),
-            'regForm' => $regForm->createView()
+            'form'      => $form->createView(),
+            'regForm'   => $regForm->createView(),
+            'loginForm' => $loginForm->createView()
         ]);
     }
 }
