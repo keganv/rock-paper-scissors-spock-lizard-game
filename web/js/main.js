@@ -7,6 +7,7 @@ define(function() {
     });
 
     app.controller('MainController', function($scope, $http) {
+
         $scope.submitForm = function(e) {
             e.preventDefault();
             var $form = $(e.currentTarget);
@@ -21,8 +22,13 @@ define(function() {
                 data: $.param(fields),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function successCallback(response) {
-                console.log(response);
                 _showMessages('success', response.data);
+
+                // If registration success
+                if (response.data['success'].indexOf('successfully registered')) {
+                    _hideRegistrationForm();
+                    _showBattleZone();
+                }
             }, function errorCallback(response) {
                 _showMessages('error', response.data);
             });
@@ -53,19 +59,36 @@ define(function() {
             });
         }
 
+        function _hideRegistrationForm() {
+            $('section.register').fadeOut(function(){
+                $(this).remove();
+            });
+        }
+
+        function _showBattleZone() {
+            $('section.battle-zone').fadeIn();
+        }
+
         $scope.closeAlert = function(e) {
             var $target = $(e.currentTarget);
             $target.parent('.alert').fadeOut(function() {
                 $(this).remove();
             });
         };
-    });
 
-    // Show registrations form
-    $(document).on('click', '.btn.register', function() {
-        $('section.register-login').fadeOut(function() {
-            $('section.register').fadeIn();
-        });
+        $scope.showRegistrationForm = function() {
+            $('section.register-login').fadeOut(function() {
+                $('section.register').fadeIn();
+            });
+        };
+
+        // When a user selects a weapon
+        $scope.selectWeapon = function(e) {
+            var $target = $(e.currentTarget);
+            $('.weapons img').removeClass('active');
+            $target.parent().find('img').addClass('active');
+            $('form button[type="submit"]').fadeIn();
+        };
     });
 
     /*
@@ -89,21 +112,6 @@ define(function() {
                 }
             });
         }
-
-        // Listens for form submission
-        $(document).on('submit', 'form', function(e) {
-            e.preventDefault();
-            _submitForm($(this));
-        });
-
-        // When a user selects a weapon
-        $(document).on('click', '.weapons label', function() {
-            $('.weapons img').removeClass('active');
-            $(this).parent().find('img').addClass('active');
-            $('form button[type="submit"]').fadeIn();
-        });
-
-
 
         // When a user resets the games
         $(document).on('click', 'button.reset-games', function() {
