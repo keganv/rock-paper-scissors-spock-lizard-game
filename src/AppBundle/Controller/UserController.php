@@ -7,10 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-use AppBundle\Form\UserType;
+use AppBundle\Form\RegistrationType;
 use AppBundle\Entity\User;
 
-class RegistrationController extends FOSRestController
+class UserController extends FOSRestController
 {
     /**
      * @param Request $request
@@ -19,7 +19,7 @@ class RegistrationController extends FOSRestController
     public function postUserRegistrationAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(new UserType(), $user, [
+        $form = $this->createForm(new RegistrationType(), $user, [
             'action' => $this->generateUrl('post_user_registration'),
             'method' => 'POST'
         ]);
@@ -48,6 +48,11 @@ class RegistrationController extends FOSRestController
         $view = $this->view($errors, 400);
 
         return $this->handleView($view);
+    }
+
+    public function postUserLoginAction(Request $request)
+    {
+
     }
 
     private function getErrorMessages(Form $form) {
