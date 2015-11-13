@@ -14,8 +14,7 @@ class LoginType extends AbstractType
                     'invalid_message' => 'Cannot find a user with this username.'
                 ]
             )
-            ->add('password', 'repeated', [
-                    'type' => 'password',
+            ->add('password', 'password', [
                     'invalid_message' => 'The password is incorrect.'
                 ]
             );
