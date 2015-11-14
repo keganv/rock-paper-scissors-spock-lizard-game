@@ -25,8 +25,8 @@ define(function() {
                 _showMessages('success', response.data);
 
                 // If registration success
-                if (response.data['success'].indexOf('successfully registered')) {
-                    _hideRegistrationForm();
+                if (response.data['success'].indexOf('you may now battle')) {
+                    _hideRegistrationLoginForms();
                     _showBattleZone();
                 }
             }, function errorCallback(response) {
@@ -59,8 +59,8 @@ define(function() {
             });
         }
 
-        function _hideRegistrationForm() {
-            $('section.register').fadeOut(function(){
+        function _hideRegistrationLoginForms() {
+            $('section.register-login').fadeOut(function(){
                 $(this).remove();
             });
         }
@@ -76,12 +76,6 @@ define(function() {
             });
         };
 
-        $scope.showRegistrationForm = function() {
-            $('section.register-login').fadeOut(function() {
-                $('section.register').fadeIn();
-            });
-        };
-
         // When a user selects a weapon
         $scope.selectWeapon = function(e) {
             var $target = $(e.currentTarget);
@@ -89,29 +83,6 @@ define(function() {
             $target.parent().find('img').addClass('active');
             $('form button[type="submit"]').fadeIn();
         };
-    });
-
-    /*
-    return function() {
-
-        function _submitForm($form) {
-            var fields = {};
-            $.each($form.serializeArray(), function(index, field) {
-                fields[field.name] = field.value;
-            });
-
-            $.ajax({
-                'type' : $form.attr('method'),
-                'url' : $form.attr('action'),
-                'data' : fields,
-                'success' : function(data) {
-                    _showMessages('success', data);
-                },
-                'error' : function(data) {
-                    _showMessages('error', data.responseJSON);
-                }
-            });
-        }
 
         // When a user resets the games
         $(document).on('click', 'button.reset-games', function() {
@@ -127,6 +98,5 @@ define(function() {
                 }
             });
         });
-    }();
-    */
+    });
 });

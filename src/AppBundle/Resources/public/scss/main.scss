@@ -35,7 +35,8 @@ form {
         }
     }
     button.btn {
-        margin-left: 14%;
+        display: block;
+        margin-left: 14.5%;
     }
 }
 header.main {
@@ -76,13 +77,6 @@ section {
     &.register-login {
         min-width: 300px;
         text-align: center;
-        width: 50%;
-        .register.btn {
-            margin-bottom: 30px;
-        }
-    }
-    &.register {
-        display: none;
     }
     &.battle-zone {
         display: none;

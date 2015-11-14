@@ -1,0 +1,114 @@
+@import url(https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco);
+body {
+  background: #eee;
+  font-family: 'Sue Ellen Francisco', Helvetica, Arial, sans-serif;
+  font-size: 20px; }
+
+.text-purple {
+  color: #e86dff; }
+
+.text-green {
+  color: #81e28a; }
+
+.text-blue {
+  color: #6da5ff; }
+
+.text-pink {
+  color: #ff6f6f; }
+
+.text-yellow {
+  color: #ffe370; }
+
+h2, h3, h4 {
+  font-size: 30px;
+  margin: 0 0 15px;
+  text-align: center; }
+
+form {
+  margin-top: 30px; }
+  form > div {
+    margin: 15px 0; }
+    form > div label {
+      display: inline-block;
+      padding-right: 2%;
+      text-align: right;
+      width: 14%; }
+    form > div input[type="text"],
+    form > div input[type="email"],
+    form > div input[type="password"] {
+      border: 1px solid #eee;
+      border-radius: 4px;
+      display: inline-block;
+      width: 85%; }
+  form button.btn {
+    margin-left: 14%; }
+
+header.main {
+  margin: 0 0 30px;
+  text-align: center; }
+  header.main img.logo {
+    display: block;
+    margin: 0 auto 15px;
+    min-width: 200px;
+    width: 15vw; }
+
+.messages {
+  font-size: 25px; }
+  .messages div.alert p {
+    border-radius: 3px;
+    display: inline-block;
+    margin: 0;
+    padding: 0; }
+  .messages div.alert .close {
+    border-radius: 50px;
+    border-style: solid;
+    border-width: 1px;
+    margin-top: 4px;
+    padding: 0 0 3px;
+    text-align: center;
+    width: 26px; }
+
+section {
+  background: #fff;
+  border-radius: 3px;
+  margin: 0 auto 30px;
+  padding: 15px; }
+  section.register-login {
+    min-width: 300px;
+    text-align: center; }
+  section.register {
+    border-right: 1px solid #eee; }
+  section.battle-zone {
+    display: none;
+    padding: 15px 15px 45px; }
+    section.battle-zone .weapons {
+      margin: 0; }
+      section.battle-zone .weapons .input-group {
+        display: block;
+        float: left;
+        height: 100%;
+        padding: 0 15px;
+        position: relative;
+        width: 20%; }
+        section.battle-zone .weapons .input-group img {
+          border-radius: 1000px;
+          display: block;
+          width: 100%; }
+          section.battle-zone .weapons .input-group img.active {
+            box-shadow: 0 0 3px 2px #6da5ff; }
+        section.battle-zone .weapons .input-group input {
+          display: none; }
+        section.battle-zone .weapons .input-group label {
+          cursor: pointer;
+          display: block;
+          height: 100%;
+          left: 0;
+          padding-top: 105%;
+          position: absolute;
+          text-align: center;
+          top: 0;
+          width: 100%; }
+    section.battle-zone button[type=submit] {
+      display: none;
+      margin-bottom: -30px;
+      margin-top: 70px; }
