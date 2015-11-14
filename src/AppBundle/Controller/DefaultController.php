@@ -33,14 +33,14 @@ class DefaultController extends Controller
         ));
 
         $loginForm = $this->createForm(new LoginType(), $user, array(
-            'action' => $this->generateUrl('post_user_login'),
+            'action' => $this->generateUrl('user_login'),
             'method' => 'POST'
         ));
 
         return $this->render('default/index.html.twig', [
-            'form'      => $form->createView(),
-            'regForm'   => $regForm->createView(),
-            'loginForm' => $loginForm->createView()
+            'form'       => $form->createView(),
+            'regForm'    => $regForm->createView(),
+            'loginForm'  => $loginForm->createView()
         ]);
     }
 }
