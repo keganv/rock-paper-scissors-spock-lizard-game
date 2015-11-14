@@ -12,7 +12,7 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        user_provider:
+        main:
             entity:
                 class: AppBundle:User
 
@@ -20,8 +20,14 @@ security:
         default:
             pattern:    ^/
             http_basic: ~
-            provider: user_provider
+            provider: main
             anonymous: true
+            form_login:
+                login_path: index
+                check_path: user_login
+                failure_path: index
+                username_parameter: login[username]
+                password_parameter: login[password]
             logout:
                 path:   /logout/
                 target: /
@@ -32,13 +38,5 @@ security:
             security: false
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
-        # activate different ways to authenticate
-
-        # http_basic: ~
-        # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-        # form_login: ~
-        # http://symfony.com/doc/current/cookbook/security/form_login_setup.html

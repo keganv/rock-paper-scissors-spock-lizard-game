@@ -1,5 +1,1 @@
-# http://symfony.com/doc/current/book/service_container.html
 services:
-    #registration_handler:
-        #class: AppBundle\Form\Handler\RegistrationHandler
-        #arguments: ["@doctrine.orm.entity_manager"]
