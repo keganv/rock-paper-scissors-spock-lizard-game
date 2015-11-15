@@ -34,28 +34,38 @@ class BattleController extends FOSRestController
      */
     public function postBattleAction(Request $request)
     {
+        // Check if there is a user
+        if (!$this->getUser()) {
+            $response = ['error' => 'You must login or create a user to battle.'];
+            $view = $this->view($response, 400);
+            return $this->handleView($view);
+        }
+
         $battle = new Battle();
         $form = $this->createForm(new BattleType(), $battle, array(
             'action' => $this->generateUrl('post_battle'),
             'method' => 'POST'
         ));
+
         $form->handleRequest($request);
         if ($form->isValid()) {
+            $user = $this->getUser();
             $em = $this->get('doctrine.orm.entity_manager');
+            $battle->setUser($user);
             $em->persist($battle);
             $em->flush();
 
             $qb = $em->createQueryBuilder();
             $qb->select('b')
                 ->from('AppBundle:Battle', 'b')
+                ->where('b.user = :user')
                 ->setMaxResults(1)
-                ->orderBy('b.id', 'DESC');
+                ->orderBy('b.id', 'DESC')
+                ->setParameter('user', $user);
             $query = $qb->getQuery();
-            $lastBattle = $query->getResult();
-
-            var_dump($lastBattle);die;
-
-            $view = $this->view($data, 200);
+            $lastBattle = $query->getArrayResult();
+            $response = ['battle-info' => $lastBattle];
+            $view = $this->view($response, 200);
             return $this->handleView($view);
         }
 
@@ -83,12 +93,12 @@ class BattleController extends FOSRestController
             $connection->query('DELETE FROM '.$cmd->getTableName());
             $connection->query('SET FOREIGN_KEY_CHECKS=1');
             $connection->commit();
-            $data = 'Successfully deleted all previous games.';
-            $view = $this->view($data, 200);
+            $response = ['success' => 'Successfully deleted all previous games.'];
+            $view = $this->view($response, 200);
             return $this->handleView($view);
         } catch (\Exception $e) {
             $connection->rollback();
-            $data = 'Could not delete all previous games.';
+            $data = ['error' => 'Could not delete all previous games.'];
             $view = $this->view($data, 200);
             return $this->handleView($view);
         }
