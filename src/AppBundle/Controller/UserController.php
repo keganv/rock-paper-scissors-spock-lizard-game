@@ -36,9 +36,7 @@ class UserController extends FOSRestController
 
             // Send the response
             $response = ['success' => 'You\'ve successfully registered, you may now battle!'];
-            $view = $this->view($response, 200)
-                ->setTemplate('registration/register.html.twig')
-                ->setTemplateData(['form' => $form->createView()]);
+            $view = $this->view($response, 200);
             return $this->handleView($view);
         }
 
