@@ -20,12 +20,11 @@
                 {% include('login/login.html.twig') with {'form': loginForm} %}
             </div>
         </section>
-
     {% endif %}
-    <section class="battle-zone clearfix" style="{{ app.user ? 'display: block;': '' }}">
+    <section class="battle-zone clearfix" style="{{ app.user ? 'display: block;' }}">
         <h3 class="text-center">Select Your Weapon</h3>
         <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form"
-              id="battle_form" class="col-md-12" data-ng-sumit="submitForm($event)">
+              id="battle_form" class="col-md-12" data-ng-submit="submitForm($event)">
             <div class="weapons col-md-12 clearfix">
                 {% for weapon in form.userWeapon %}
                     <div class="input-group weapon-{{ loop.index }}">
@@ -49,6 +48,16 @@
             {{ form_widget(form._token) }}
             <button class="btn btn-primary" type="submit">BATTLE</button>
         </form>
-        <button type="button" class="reset-games btn btn-danger pull-right">Reset Games</button>
+        <div class="battle-info">
+            <h3 class="teaser">and the victor is...</h3>
+            <h3 class="victor"><% victor %></h3>
+            <button type="button" data-ng-click="showBattleZone()" class="btn-lg">Battle Again!</button>
+        </div>
+    </section>
+    <section class="scoreboard clearfix">
+        <form action="{{ path('delete_battles') }}" method="post" data-ng-submit="submitForm($event)">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="reset-games btn btn-danger pull-right">Reset Games</button>
+        </form>
     </section>
 {% endblock %}
