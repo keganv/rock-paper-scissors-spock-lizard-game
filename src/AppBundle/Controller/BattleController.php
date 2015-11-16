@@ -11,20 +11,33 @@ use AppBundle\Form\BattleType;
 
 class BattleController extends FOSRestController
 {
-    protected $em;
-
-    public function __construct()
+    public function getBattlesAction(Request $request)
     {
-        // $this->em = $this->get('');
-    }
+        if ($user = ($this->getUser())) {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $q = $em->createQuery('SELECT b FROM AppBundle\Entity\Battle b WHERE b.user = :user')
+                ->setParameter('user', $user->getId());
+            $battles = $q->getArrayResult();
 
-    public function getBattlesAction()
-    {
-        $battles = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Battle')->findAll();
+            $response = [
+                'user_victories'     => 0,
+                'computer_victories' => 0,
+                'total_ties'         => 0
+            ];
 
-        $view = $this->view($battles, 200);
+            foreach ($battles as $battle) {
+                if ($battle['victor'] === 0) {
+                    $response['user_victories']++;
+                } elseif ($battle['victor'] === 1) {
+                    $response['computer_victories']++;
+                } else {
+                    $response['total_ties']++;
+                }
+            }
 
-        return $this->handleView($view);
+            $view = $this->view($response, 200);
+            return $this->handleView($view);
+        }
     }
 
     /**
@@ -83,23 +96,24 @@ class BattleController extends FOSRestController
      */
     public function deleteBattlesAction()
     {
-        $em = $this->get('doctrine.orm.entity_manager');
-        $cmd = $em->getClassMetadata('AppBundle\Entity\Battle');
-        $connection = $em->getConnection();
-        $connection->beginTransaction();
+        // Check if there is a user
+        if (!$user = ($this->getUser())) {
+            $response = ['error' => 'You cannot delete battles.'];
+            $view = $this->view($response, 400);
+            return $this->handleView($view);
+        }
 
+        $em = $this->get('doctrine.orm.entity_manager');
         try {
-            $connection->query('SET FOREIGN_KEY_CHECKS=0');
-            $connection->query('DELETE FROM '.$cmd->getTableName());
-            $connection->query('SET FOREIGN_KEY_CHECKS=1');
-            $connection->commit();
+            $q = $em->createQuery('DELETE FROM AppBundle\Entity\Battle b WHERE b.user = :user')
+                ->setParameter('user', $user->getId());
+            $q->execute();
             $response = ['success' => 'Successfully deleted all previous games.'];
             $view = $this->view($response, 200);
             return $this->handleView($view);
         } catch (\Exception $e) {
-            $connection->rollback();
-            $data = ['error' => 'Could not delete all previous games.'];
-            $view = $this->view($data, 200);
+            $response = ['error' => 'Could not delete all previous games.'];
+            $view = $this->view($response, 400);
             return $this->handleView($view);
         }
     }
