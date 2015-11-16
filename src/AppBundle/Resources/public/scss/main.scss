@@ -16,7 +16,6 @@ h2, h3, h4 {
     text-align: center;
 }
 form {
-    margin-top: 30px;
     > div {
         margin: 15px 0;
         label {
@@ -77,17 +76,20 @@ section {
     &.register-login {
         min-width: 300px;
         text-align: center;
+        .register, .login {
+            margin-top: 30px;
+        }
     }
     &.battle-zone {
         display: none;
-        padding: 15px 15px 45px;
+        padding: 15px;
         .weapons {
             margin: 0;
             .input-group {
                 display: block;
                 float: left;
                 height: 100%;
-                padding: 0 15px;
+                padding: 0 15px 10%;
                 position: relative;
                 width: 20%;
                 img {
@@ -114,10 +116,48 @@ section {
                 }
             }
         }
+        .battle-info {
+            display: none;
+            figure {
+                margin: 0 0 30px;
+                &.computer-weapon {
+                    img {
+                        opacity: 0;
+                    }
+                }
+                img {
+                    max-width: 100%;
+                }
+            }
+            .teaser {
+                margin: 30px 0;
+            }
+            .victor {
+                display: none;
+                margin: 30px 0;
+            }
+            button.btn-danger {
+                display: block;
+                margin: auto;
+                width: 50%;
+            }
+        }
         button[type=submit] {
             display: none;
-            margin-bottom: -30px;
-            margin-top: 70px;
+            margin: auto;
+            width: 50%;
+        }
+    }
+    &.scoreboard {
+        table {
+            width: 100%;
+            th {
+                text-align: center;
+                width: 25%;
+            }
+            td {
+                text-align: center;
+            }
         }
     }
 }
