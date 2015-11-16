@@ -22,9 +22,9 @@
         </section>
     {% endif %}
     <section class="battle-zone clearfix" style="{{ app.user ? 'display: block;' }}">
-        <h3 class="text-center">Select Your Weapon</h3>
         <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="battle_form"
               id="battle_form" class="col-md-12" data-ng-submit="submitForm($event)">
+            <h3 class="text-center">Select Your Weapon</h3>
             <div class="weapons col-md-12 clearfix">
                 {% for weapon in form.userWeapon %}
                     <div class="input-group weapon-{{ loop.index }}">
@@ -46,18 +46,50 @@
             {{ form_widget(form.victor) }}
             <input type="hidden" name="_method" value="{{ form.vars.method }}">
             {{ form_widget(form._token) }}
-            <button class="btn btn-primary" type="submit">BATTLE</button>
+            <button type="submit" class="btn btn-danger btn-lg">BATTLE</button>
         </form>
-        <div class="battle-info">
-            <h3 class="teaser">and the victor is...</h3>
-            <h3 class="victor"><% victor %></h3>
-            <button type="button" data-ng-click="showBattleZone()" class="btn-lg">Battle Again!</button>
+        <div class="battle-info clearfix">
+            <div class="clearfix">
+                <figure class="player-weapon col-md-6 col-xs-6 text-center">
+                    <img src="{{ asset('/img/<% user_img %>.png') }}" />
+                    <figcaption>Your Weapon</figcaption>
+                </figure>
+                <figure class="computer-weapon col-md-6 col-xs-6 text-center">
+                    <img src="{{ asset('/img/<% comp_img %>.png') }}" />
+                    <figcaption>Computer Weapon</figcaption>
+                </figure>
+                <h3 class="teaser">
+                    The Victor Is...
+                </h3>
+                <h3 class="victor"><% victor %></h3>
+            </div>
+            <button type="button" class="btn btn-danger btn-lg" data-ng-click="showBattleZone()">BATTLE AGAIN!</button>
         </div>
     </section>
     <section class="scoreboard clearfix">
-        <form action="{{ path('delete_battles') }}" method="post" data-ng-submit="submitForm($event)">
-            <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" class="reset-games btn btn-danger pull-right">Reset Games</button>
-        </form>
+        <h3>Scoreboard</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>User Victories</th>
+                    <th>Computer Victories</th>
+                    <th>Ties</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><% user_victories %></td>
+                    <td><% computer_victories %></td>
+                    <td><% total_ties %></td>
+                    <td>
+                        <form action="{{ path('delete_battles') }}" method="post" data-ng-submit="submitForm($event)">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="reset-games btn btn-danger pull-right">Reset Games</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 {% endblock %}
