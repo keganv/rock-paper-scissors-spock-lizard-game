@@ -8,8 +8,7 @@ parameters:
     database_user:     root
     database_password: ~
     dev_database_password: 1234
-    assetic.cache.class: ~
-
+    assetic.cache.class: Assetic\Cache\ArrayCache
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
